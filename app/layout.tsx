@@ -1,7 +1,11 @@
 import "./global.css";
 import GlassNavbar from "../components/GlassNavbar";
 
-export default function RootLayout({ children }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html lang="zh">
       <body>
