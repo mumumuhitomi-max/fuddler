@@ -1,0 +1,960 @@
+/* ========= 基础重置 ========= */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont,
+    "Segoe UI", "PingFang SC", "Hiragino Sans GB",
+    "Microsoft YaHei", sans-serif;
+  color: #0f172a;
+}
+
+/* ========= 页面背景 ========= */
+.page-bg {
+  min-height: 100vh;
+  background: linear-gradient(
+    180deg,
+    #ff7abf 0%,
+    #f7a8c6 35%,
+    #6b5cff 100%
+  );
+}
+
+/* ========= 页面宽度控制 ========= */
+.page-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 32px 24px 120px;
+}
+
+/* ========= 字体系统 ========= */
+.text-display {
+  font-size: 40px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.text-subtitle {
+  font-size: 18px;
+  margin-top: 12px;
+  color: rgba(15, 23, 42, 0.8);
+}
+
+.text-card-title {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.text-body {
+  font-size: 16px;
+  line-height: 1.7;
+}
+
+.text-muted {
+  font-size: 14px;
+  color: rgba(15, 23, 42, 0.55);
+}
+
+/* ========= 玻璃卡片 ========= */
+.glass-card {
+  background: rgba(255, 255, 255, 0.35);
+  backdrop-filter: blur(14px);
+  border-radius: 20px;
+  padding: 24px 28px;
+  box-shadow:
+    0 20px 40px rgba(0, 0, 0, 0.08);
+  margin-top: 28px;
+}
+
+.glass-card-strong {
+  background: rgba(20, 24, 60, 0.75);
+  color: #f8fafc;
+  backdrop-filter: blur(18px);
+  border-radius: 22px;
+  padding: 28px 32px;
+  margin-top: 36px;
+  box-shadow:
+    0 30px 60px rgba(0, 0, 0, 0.25);
+}
+
+/* ========= Fortune 文本 ========= */
+.fortune-section-title {
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+.fortune-line {
+  font-size: 16px;
+  line-height: 1.8;
+  margin-bottom: 14px;
+  opacity: 0;
+  animation: fadeInUp 0.5s ease forwards;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ========= 悬浮玻璃导航 ========= */
+
+.glass-navbar-wrapper {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  padding: 16px 0;
+}
+
+.glass-navbar {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 14px 24px;
+  border-radius: 20px;
+
+  background: rgba(255, 255, 255, 0.35);
+  backdrop-filter: blur(16px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.glass-navbar-logo {
+  font-weight: 700;
+  font-size: 18px;
+  letter-spacing: 0.02em;
+}
+
+.glass-navbar-tabs {
+  display: flex;
+  gap: 32px;
+}
+
+.glass-tab {
+  position: relative;
+  font-size: 15px;
+  color: rgba(15, 23, 42, 0.65);
+  text-decoration: none;
+  padding: 6px 2px;
+  transition: all 0.25s ease;
+}
+
+.glass-tab:hover {
+  color: rgba(15, 23, 42, 0.9);
+  transform: translateY(-1px);
+}
+
+.glass-tab.active {
+  color: rgba(15, 23, 42, 1);
+  font-weight: 600;
+}
+
+.tab-indicator {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -6px;
+  height: 3px;
+  border-radius: 3px;
+  background: linear-gradient(
+    90deg,
+    #ff7abf,
+    #6b5cff
+  );
+}
+
+/* ========= Summary 布局 ========= */
+
+.summary-grid {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+}
+
+.summary-metrics {
+  display: flex;
+  gap: 32px;
+}
+
+.summary-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.summary-label {
+  font-size: 14px;
+  color: rgba(15, 23, 42, 0.55);
+}
+
+.summary-value {
+  font-size: 22px;
+  font-weight: 600;
+  margin-top: 4px;
+}
+
+/* ========= Sparkline ========= */
+
+.summary-sparkline {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.sparkline {
+  opacity: 0.85;
+}
+
+.sparkline-caption {
+  font-size: 12px;
+  color: rgba(15, 23, 42, 0.45);
+  margin-top: 4px;
+}
+
+.sparkline-placeholder {
+  font-size: 12px;
+  color: rgba(15, 23, 42, 0.4);
+}
+
+/* ========= Sparkline Hover ========= */
+
+.sparkline-wrapper {
+  position: relative;
+}
+
+.sparkline-tooltip {
+  position: absolute;
+  right: 0;
+  top: 52px;
+
+  background: rgba(20, 24, 60, 0.85);
+  backdrop-filter: blur(10px);
+  color: #f8fafc;
+
+  padding: 8px 12px;
+  border-radius: 10px;
+  font-size: 12px;
+  line-height: 1.5;
+
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.tooltip-date {
+  opacity: 0.75;
+  margin-bottom: 2px;
+}
+
+.tooltip-action {
+  font-weight: 500;
+}
+
+/* ========= 操作定位高亮 ========= */
+
+.record-item {
+  padding: 14px 16px;
+  border-radius: 14px;
+  margin-bottom: 12px;
+  background: rgba(255, 255, 255, 0.35);
+  backdrop-filter: blur(12px);
+  transition: all 0.3s ease;
+}
+
+.record-active {
+  box-shadow: 0 0 0 2px rgba(255, 122, 191, 0.6),
+              0 12px 30px rgba(0, 0, 0, 0.18);
+  background: rgba(255, 255, 255, 0.6);
+}
+
+.record-title {
+  font-weight: 600;
+}
+
+.record-meta {
+  font-size: 12px;
+  color: rgba(15, 23, 42, 0.6);
+  margin-top: 4px;
+}
+
+/* ========= Side Detail Panel ========= */
+
+.side-mask {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.25);
+  z-index: 90;
+}
+
+.side-panel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 360px;
+  height: 100vh;
+
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(18px);
+
+  box-shadow: -20px 0 50px rgba(0, 0, 0, 0.25);
+  z-index: 100;
+
+  display: flex;
+  flex-direction: column;
+  animation: slideIn 0.35s ease;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.side-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 24px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.side-title {
+  font-weight: 600;
+  font-size: 18px;
+}
+
+.side-close {
+  background: none;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.side-content {
+  padding: 24px;
+}
+
+.side-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 14px;
+  font-size: 14px;
+}
+
+.side-row span:first-child {
+  color: rgba(15, 23, 42, 0.6);
+}
+
+.side-hint {
+  margin-top: 24px;
+  font-size: 12px;
+  color: rgba(15, 23, 42, 0.45);
+}
+
+/* ========= Today Page ========= */
+
+.today-hero {
+  margin-bottom: 32px;
+}
+
+.today-title {
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.today-date {
+  margin-top: 4px;
+  font-size: 14px;
+  color: rgba(15, 23, 42, 0.6);
+}
+
+.today-subtitle {
+  margin-top: 12px;
+  font-size: 16px;
+  color: rgba(15, 23, 42, 0.75);
+}
+
+.section-title {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.today-divider {
+  margin: 32px 0 16px;
+  font-size: 14px;
+  color: rgba(15, 23, 42, 0.5);
+}
+
+/* 盘友记录 */
+
+.today-record {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 16px;
+}
+
+.record-dot {
+  width: 8px;
+  height: 8px;
+  background: #ff7abf;
+  border-radius: 50%;
+  margin-top: 6px;
+  margin-right: 12px;
+}
+
+.record-main {
+  font-weight: 500;
+}
+
+.record-sub {
+  font-size: 12px;
+  color: rgba(15, 23, 42, 0.5);
+  margin-top: 2px;
+}
+
+.empty-hint {
+  font-size: 14px;
+  color: rgba(15, 23, 42, 0.4);
+}
+
+/* 我的操作 */
+
+.action-form {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.action-form select,
+.action-form input {
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(15, 23, 42, 0.15);
+  background: rgba(255, 255, 255, 0.6);
+}
+
+.primary-button {
+  padding: 10px 16px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #ff7abf, #6b5cff);
+  color: white;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+}
+
+.action-hint {
+  font-size: 12px;
+  color: rgba(15, 23, 42, 0.45);
+}
+
+/* ========= Fortune Structured ========= */
+
+.fortune-structured {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.fortune-block {
+  padding: 16px 18px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(12px);
+}
+
+.fortune-block-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: rgba(15, 23, 42, 0.6);
+  margin-bottom: 6px;
+}
+
+.fortune-block-text {
+  font-size: 15px;
+  line-height: 1.6;
+  color: rgba(15, 23, 42, 0.9);
+}
+
+.fortune-loading {
+  font-size: 14px;
+  color: rgba(15, 23, 42, 0.5);
+}
+
+/* ========= Analysis Records ========= */
+
+.analysis-record-list {
+  margin-top: 16px;
+  max-height: 260px;
+  overflow-y: auto;
+}
+
+.analysis-record-item {
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.45);
+  margin-bottom: 10px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.analysis-record-item:hover {
+  background: rgba(255, 255, 255, 0.65);
+}
+
+.record-main {
+  display: flex;
+  gap: 8px;
+  font-weight: 500;
+}
+
+.record-action {
+  color: #6b5cff;
+}
+
+.record-fund {
+  color: rgba(15, 23, 42, 0.85);
+}
+
+.record-time {
+  margin-top: 4px;
+  font-size: 12px;
+  color: rgba(15, 23, 42, 0.5);
+}
+
+/* ========= Page Layout ========= */
+
+.page-top-offset {
+  height: 32px; /* 可调：24~40 都合理 */
+}
+
+.page-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 24px 80px;
+}
+
+/* ========= Analysis Hero ========= */
+
+.analysis-hero {
+  margin-bottom: 32px;
+}
+
+.text-display {
+  font-size: 32px;
+  font-weight: 700;
+  margin-top: 8px;
+}
+
+.text-subtitle {
+  margin-top: 12px;
+  font-size: 16px;
+  color: rgba(15, 23, 42, 0.75);
+}
+
+/* ========= Palyou ========= */
+
+.palyou-hero {
+  margin-bottom: 32px;
+}
+
+.palyou-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.palyou-item {
+  padding: 14px 16px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.45);
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.palyou-item:hover {
+  background: rgba(255, 255, 255, 0.65);
+}
+
+.palyou-main {
+  display: flex;
+  gap: 8px;
+  font-weight: 500;
+}
+
+.palyou-action {
+  color: #6b5cff;
+}
+
+.palyou-fund {
+  color: rgba(15, 23, 42, 0.85);
+}
+
+.palyou-time {
+  margin-top: 4px;
+  font-size: 12px;
+  color: rgba(15, 23, 42, 0.5);
+}
+
+/* ========= Palyou Input ========= */
+
+.palyou-input {
+  margin-bottom: 20px;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 100px 1fr 120px 80px;
+  gap: 10px;
+}
+
+.form-row input,
+.form-row select {
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+}
+
+.form-row button {
+  background: linear-gradient(135deg, #ff7ad9, #8b7bff);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.record-card {
+  padding: 16px 18px;
+}
+
+.record-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.record-main {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: 600;
+}
+
+.record-id {
+  opacity: 0.85;
+}
+
+.record-badge {
+  font-size: 12px;
+  padding: 2px 8px;
+  border-radius: 999px;
+}
+
+.badge-买入 {
+  background: rgba(255, 255, 255, 0.35);
+}
+
+.badge-卖出 {
+  background: rgba(0, 0, 0, 0.15);
+}
+
+.badge-转换 {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.record-amount {
+  margin-left: 8px;
+}
+
+.record-input {
+  width: 90px;
+  padding: 4px 8px;
+  border-radius: 6px;
+  border: none;
+  outline: none;
+}
+
+.record-sub {
+  margin-top: 8px;
+  font-size: 13px;
+  opacity: 0.75;
+  display: flex;
+  justify-content: space-between;
+}
+
+.edit-btn {
+  font-size: 12px;
+  opacity: 0.6;
+  cursor: pointer;
+}
+
+/* ========= Typography System ========= */
+
+.text-display {
+  font-size: 32px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.text-subtitle {
+  margin-top: 6px;
+  font-size: 15px;
+  opacity: 0.85;
+}
+
+.card-title {
+  font-size: 14px;
+  font-weight: 600;
+  opacity: 0.8;
+  margin-bottom: 10px;
+}
+
+input,
+select,
+button {
+  font-size: 14px;
+}
+
+.summary-value {
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.summary-label {
+  font-size: 12px;
+  opacity: 0.7;
+}
+
+/* ========= Palyou Input ========= */
+
+.palyou-form {
+  display: grid;
+  grid-template-columns: 140px 100px 1fr 140px 80px;
+  gap: 12px;
+  align-items: center;
+}
+
+.palyou-form input,
+.palyou-form select {
+  height: 38px;
+  padding: 0 12px;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+}
+
+.palyou-form button {
+  height: 38px;
+  border-radius: 10px;
+}
+
+/* ========= Filter Bar ========= */
+
+.filter-bar {
+  display: grid;
+  grid-template-columns: 160px 120px 1fr;
+  gap: 12px;
+  padding: 14px 16px;
+}
+
+.filter-bar input,
+.filter-bar select {
+  height: 34px;
+  padding: 0 10px;
+  border-radius: 8px;
+  border: none;
+  outline: none;
+  font-size: 13px;
+}
+
+.record-fund {
+  font-size: 14px;
+  font-weight: 500;
+  opacity: 0.9;
+}
+
+.record-time {
+  font-size: 12px;
+  opacity: 0.6;
+}
+
+/* ======== Record Card ======== */
+
+.record-card {
+  margin-top: 14px;
+  padding: 16px 18px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(12px);
+}
+
+.record-main {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.record-left {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.record-palyou {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.record-action-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.record-action {
+  font-size: 12px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.08);
+}
+
+.record-fund-name {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.record-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.record-amount {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.record-edit {
+  font-size: 12px;
+  padding: 4px 10px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+}
+
+.record-meta {
+  margin-top: 8px;
+  font-size: 12px;
+  opacity: 0.6;
+}
+
+.record-card.clickable {
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.record-card.clickable:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+}
+
+/* ========= Palyou Profile ========= */
+
+.profile-card {
+  margin-top: 28px;
+}
+
+.profile-title {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 14px;
+}
+
+.profile-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.profile-label {
+  font-size: 12px;
+  opacity: 0.7;
+}
+
+.profile-value {
+  margin-top: 6px;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.profile-value.highlight {
+  color: #2a1c50;
+}
+
+/* ========= Behavior Timeline ========= */
+
+.timeline-card {
+  margin-top: 28px;
+}
+
+.timeline-title {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 14px;
+}
+
+.timeline-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.timeline-item {
+  padding: 14px 16px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.45);
+}
+
+.timeline-date {
+  font-size: 12px;
+  opacity: 0.7;
+}
+
+.timeline-meta {
+  margin-top: 6px;
+  font-size: 13px;
+  display: flex;
+  gap: 12px;
+}
+
+.timeline-behavior {
+  margin-top: 8px;
+  font-weight: 600;
+}
+
+.timeline-behavior.changed {
+  color: #5b2d91;
+}
+
+.change-flag {
+  margin-left: 8px;
+  font-size: 12px;
+  padding: 2px 6px;
+  border-radius: 6px;
+  background: rgba(91, 45, 145, 0.15);
+}
