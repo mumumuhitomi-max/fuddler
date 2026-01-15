@@ -6,13 +6,13 @@ import TodayPalyou from "../../components/TodayPalyou";
 import TodayMyAction from "../../components/TodayMyAction";
 
 export default function TodayPage() {
+  const [followPreset, setFollowPreset] = useState(null);
+
   const today = new Date().toLocaleDateString("zh-CN", {
     month: "long",
     day: "numeric",
     weekday: "long",
   });
-
-  const [followTarget, setFollowTarget] = useState(null);
 
   return (
     <PageContainer>
@@ -25,13 +25,13 @@ export default function TodayPage() {
       </div>
 
       <div className="glass-card">
-        <TodayPalyou onFollow={setFollowTarget} />
+        <TodayPalyou onFollow={setFollowPreset} />
       </div>
 
       <div className="today-divider">我的今日决策</div>
 
       <div className="glass-card-strong">
-        <TodayMyAction followTarget={followTarget} />
+        <TodayMyAction preset={followPreset} />
       </div>
     </PageContainer>
   );

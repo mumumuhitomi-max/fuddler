@@ -9,16 +9,16 @@ export default function TodayPalyou({ onFollow }) {
   const refreshKey = useDataRefresh();
 
   useEffect(() => {
-    fetchTodayPalyou();
+    fetchToday();
   }, [refreshKey]);
 
-  async function fetchTodayPalyou() {
+  async function fetchToday() {
     const start = new Date();
     start.setHours(0, 0, 0, 0);
 
     const { data } = await supabase
       .from("palyou_records")
-      .select("id, palyou_id, action_type, fund_name, amount, created_at")
+      .select("*")
       .gte("created_at", start.toISOString())
       .order("created_at", { ascending: false });
 
@@ -38,19 +38,24 @@ export default function TodayPalyou({ onFollow }) {
           <div className="record-dot" />
           <div className="record-content">
             <div className="record-main">
-              {r.action_type} · {r.fund_name || "未填写基金"}
+              {r.action_type} · {r.fund_code || "未填写基金"}
             </div>
             <div className="record-sub">
               {new Date(r.created_at).toLocaleTimeString("zh-CN")}
             </div>
-          </div>
 
-          <button
-            className="follow-btn"
-            onClick={() => onFollow?.(r)}
-          >
-            跟单
-          </button>
+            <button
+              className="follow-button"
+              onClick={() =>
+                onFollow?.({
+                  action_type: r.action_type,
+                  fund_code: r.fund_code || "",
+                })
+              }
+            >
+              一键跟单
+            </button>
+          </div>
         </div>
       ))}
     </div>
