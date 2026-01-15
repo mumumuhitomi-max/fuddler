@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import PageContainer from "../../components/PageContainer";
 import TodayPalyou from "../../components/TodayPalyou";
 import TodayMyAction from "../../components/TodayMyAction";
@@ -11,9 +12,10 @@ export default function TodayPage() {
     weekday: "long",
   });
 
+  const [followTarget, setFollowTarget] = useState(null);
+
   return (
     <PageContainer>
-      {/* Hero */}
       <div className="today-hero">
         <div className="today-title">今日操作</div>
         <div className="today-date">{today}</div>
@@ -22,16 +24,14 @@ export default function TodayPage() {
         </div>
       </div>
 
-      {/* 今日盘友 */}
       <div className="glass-card">
-        <TodayPalyou />
+        <TodayPalyou onFollow={setFollowTarget} />
       </div>
 
-      {/* 我的决策 */}
       <div className="today-divider">我的今日决策</div>
 
       <div className="glass-card-strong">
-        <TodayMyAction />
+        <TodayMyAction followTarget={followTarget} />
       </div>
     </PageContainer>
   );
