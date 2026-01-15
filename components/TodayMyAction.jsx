@@ -4,6 +4,7 @@ import { triggerDataRefresh } from "../lib/useDataRefresh";
 
 export default function TodayMyAction() {
   const [type, setType] = useState("买入");
+  const [fundName, setFundName] = useState("");
   const [amount, setAmount] = useState("");
   const [loading, setLoading] = useState(false);
   const [done, setDone] = useState(false);
@@ -13,16 +14,24 @@ export default function TodayMyAction() {
 
     setLoading(true);
 
-    await supabase.from("my_records").insert({
+    const { error } = await supabase.from("my_records").insert({
       action_type: type,
+      fund_name: fundName || null, // ✅ 存基金
       amount,
       created_at: new Date().toISOString(),
     });
 
     setLoading(false);
-    setDone(true);
 
-    // 🔥 关键：通知全局数据更新
+    if (error) {
+      alert("记录失败");
+      return;
+    }
+
+    setDone(true);
+    setFundName("");
+    setAmount("");
+
     triggerDataRefresh();
   };
 
@@ -36,6 +45,12 @@ export default function TodayMyAction() {
           <option>卖出</option>
           <option>转换</option>
         </select>
+
+        <input
+          placeholder="基金名称"
+          value={fundName}
+          onChange={(e) => setFundName(e.target.value)}
+        />
 
         <input
           placeholder="金额 / 份额"

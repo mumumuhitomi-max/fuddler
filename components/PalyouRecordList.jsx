@@ -4,13 +4,17 @@ import { useEffect, useState } from "react";
 import { supabase } from "../lib/supabaseClient";
 import { useRouter } from "next/navigation";
 
-export default function PalyouRecordList({ refreshKey = 0, palyouFilter }) {
+export default function PalyouRecordList({
+  refreshKey = 0,
+  filters,
+  onData,
+}) {
   const [records, setRecords] = useState([]);
   const router = useRouter();
 
   useEffect(() => {
     fetchRecords();
-  }, [refreshKey, palyouFilter]);
+  }, [refreshKey, filters]);
 
   async function fetchRecords() {
     let query = supabase
@@ -18,54 +22,49 @@ export default function PalyouRecordList({ refreshKey = 0, palyouFilter }) {
       .select("*")
       .order("created_at", { ascending: false });
 
-    if (palyouFilter?.palyou_id) {
-      query = query.eq("palyou_id", palyouFilter.palyou_id);
+    if (filters?.palyouId) {
+      query = query.eq("palyou_id", filters.palyouId);
     }
-    if (palyouFilter?.action) {
-      query = query.eq("action", palyouFilter.action);
+    if (filters?.actionType) {
+      query = query.eq("action", filters.actionType);
     }
-    if (palyouFilter?.fund_name) {
-      query = query.ilike("fund_name", `%${palyouFilter.fund_name}%`);
+    if (filters?.fundName) {
+      query = query.ilike("fund_name", `%${filters.fundName}%`);
     }
 
     const { data } = await query;
     setRecords(data || []);
+    onData?.(data || []);
   }
 
   return (
     <div className="record-list">
       {records.map((r) => (
         <div
-        key={r.id}
-        className="record-card clickable"
-        onClick={() =>
-          router.push(`/analysis?palyou_id=${r.palyou_id}`)
-        }
+          key={r.id}
+          className="record-card clickable"
+          onClick={() =>
+            router.push(`/analysis?palyou_id=${r.palyou_id}`)
+          }
         >
-          {/* 主信息行 */}
           <div className="record-main">
-            <div className="record-left">
-              <div className="record-palyou">{r.palyou_id || "未知盘友"}</div>
-
+            <div>
+              <div className="record-palyou">
+                {r.palyou_id || "未知盘友"}
+              </div>
               <div className="record-action-row">
-                <span className="record-action">{r.action}</span>
-                <span className="record-fund-name">
-                  {r.fund_name || "未知基金"}
-                </span>
+                <span>{r.action}</span>
+                <span>{r.fund_name || "未知基金"}</span>
               </div>
             </div>
 
             <div className="record-right">
               {r.amount && (
-                <div className="record-amount">
-                  ¥{Number(r.amount).toLocaleString()}
-                </div>
+                <div>¥{Number(r.amount).toLocaleString()}</div>
               )}
-              <button className="record-edit">编辑</button>
             </div>
           </div>
 
-          {/* 次信息 */}
           <div className="record-meta">
             {new Date(r.created_at).toLocaleString()}
           </div>

@@ -31,7 +31,7 @@ export default function PalyouInputPanel({ onSuccess }) {
 
     const { error } = await supabase.from("palyou_records").insert({
       palyou_id: palyouId,
-      action_type: actionType,
+      action: actionType,
       fund_name: fundName,
       amount: amount ? Number(amount) : null,
     });
