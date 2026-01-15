@@ -26,10 +26,10 @@ export default function PalyouRecordList({
       query = query.eq("palyou_id", filters.palyouId);
     }
     if (filters?.actionType) {
-      query = query.eq("action", filters.actionType);
+      query = query.eq("action_type", filters.actionType); // ✅
     }
     if (filters?.fundName) {
-      query = query.ilike("fund_name", `%${filters.fundName}%`);
+      query = query.ilike("fund_code", `%${filters.fundName}%`); // ✅
     }
 
     const { data } = await query;
@@ -53,8 +53,8 @@ export default function PalyouRecordList({
                 {r.palyou_id || "未知盘友"}
               </div>
               <div className="record-action-row">
-                <span>{r.action}</span>
-                <span>{r.fund_name || "未知基金"}</span>
+                <span>{r.action_type}</span>
+                <span>{r.fund_code || "未知基金"}</span>
               </div>
             </div>
 

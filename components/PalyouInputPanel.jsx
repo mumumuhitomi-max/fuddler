@@ -6,12 +6,10 @@ import { supabase } from "../lib/supabaseClient";
 export default function PalyouInputPanel({ onSuccess }) {
   const [palyouId, setPalyouId] = useState("");
   const [knownIds, setKnownIds] = useState([]);
-
   const [actionType, setActionType] = useState("买入");
-  const [fundName, setFundName] = useState("");
+  const [fundCode, setFundCode] = useState("");
   const [amount, setAmount] = useState("");
 
-  // 拉取已有盘友 ID，作为候选
   useEffect(() => {
     supabase
       .from("palyou_records")
@@ -24,20 +22,20 @@ export default function PalyouInputPanel({ onSuccess }) {
   }, []);
 
   const submit = async () => {
-    if (!palyouId || !fundName) {
+    if (!palyouId || !fundCode) {
       alert("请填写盘友ID和基金名称");
       return;
     }
 
     const { error } = await supabase.from("palyou_records").insert({
       palyou_id: palyouId,
-      action: actionType,
-      fund_name: fundName,
+      action_type: actionType,   // ✅ 对齐
+      fund_code: fundCode,       // ✅ 对齐
       amount: amount ? Number(amount) : null,
     });
 
     if (!error) {
-      setFundName("");
+      setFundCode("");
       setAmount("");
       onSuccess?.();
     }
@@ -68,8 +66,8 @@ export default function PalyouInputPanel({ onSuccess }) {
 
         <input
           placeholder="基金名称"
-          value={fundName}
-          onChange={e => setFundName(e.target.value)}
+          value={fundCode}
+          onChange={e => setFundCode(e.target.value)}
         />
 
         <input
