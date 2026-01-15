@@ -4,7 +4,6 @@ import { triggerDataRefresh } from "../lib/useDataRefresh";
 
 export default function TodayMyAction() {
   const [type, setType] = useState("买入");
-  const [fundName, setFundName] = useState("");
   const [amount, setAmount] = useState("");
   const [loading, setLoading] = useState(false);
   const [done, setDone] = useState(false);
@@ -16,8 +15,7 @@ export default function TodayMyAction() {
 
     const { error } = await supabase.from("my_records").insert({
       action_type: type,
-      fund_name: fundName || null, // ✅ 存基金
-      amount,
+      amount: Number(amount),
       created_at: new Date().toISOString(),
     });
 
@@ -29,9 +27,7 @@ export default function TodayMyAction() {
     }
 
     setDone(true);
-    setFundName("");
     setAmount("");
-
     triggerDataRefresh();
   };
 
@@ -45,12 +41,6 @@ export default function TodayMyAction() {
           <option>卖出</option>
           <option>转换</option>
         </select>
-
-        <input
-          placeholder="基金名称"
-          value={fundName}
-          onChange={(e) => setFundName(e.target.value)}
-        />
 
         <input
           placeholder="金额 / 份额"
@@ -67,11 +57,7 @@ export default function TodayMyAction() {
         </button>
       </div>
 
-      {done && (
-        <div className="action-confirm">
-          今日操作已记录 ✔
-        </div>
-      )}
+      {done && <div className="action-confirm">今日操作已记录 ✔</div>}
     </div>
   );
 }
